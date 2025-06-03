@@ -20,12 +20,12 @@
             <category term="OpenGL" scheme="http://example.com/tags/OpenGL/" />
             <category term="图形学" scheme="http://example.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" />
             <pubDate>Mon, 02 Jun 2025 22:04:55 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;此系列记录我跟随 LearnOpenGL 学习的历程。&lt;br /&gt;
+            <description><![CDATA[ &lt;p&gt;此系列记录我跟随 LearnOpenGL 学习的历程。&lt;/p&gt;
 &lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;相关代码&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0ctUGhvdG9uL215X2xlYXJub3Blbmds&#34; data-background-image=&#34;/images/404.png&#34;&gt;&lt;/span&gt;
           &lt;div class=&#34;info&#34;&gt;
           &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0ctUGhvdG9uL215X2xlYXJub3Blbmds&#34;&gt;相关代码&lt;/span&gt;
           &lt;p class=&#34;desc&#34;&gt;LearnOpenGL相关代码&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&#34;高级opengl&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#高级opengl&#34;&gt;#&lt;/a&gt; 高级 OpenGL&lt;/h2&gt;
 &lt;h3 id=&#34;抗锯齿&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#抗锯齿&#34;&gt;#&lt;/a&gt; 抗锯齿&lt;/h3&gt;
 &lt;p&gt;锯齿现象的产生主要是由于光栅器将顶点数据转化为片段的方式&lt;/p&gt;
@@ -34,13 +34,13 @@
 &lt;h4 id=&#34;msaa&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#msaa&#34;&gt;#&lt;/a&gt; MSAA&lt;/h4&gt;
 &lt;p&gt;多重采样抗锯齿 (Multisample Anti-aliasing, MSAA)，它借鉴了 SSAA 背后的理念，但却以更加高效的方式实现了抗锯齿。&lt;br /&gt;
 多重采样将每个像素单一的采样点变为多个采样点（这也是它名称的由来）。不再使用像素中心的单一采样点，取而代之的是以特定图案排列的 4 个子采样点（Subsample，采样点的数量可以是任意的，更多的采样点能带来更精确的遮盖率）。用这些子采样点来决定像素的遮盖度。&lt;br /&gt;
-无论三角形遮盖了多少个子采样点，（每个图元中）每个像素只运行一次片段着色器。片段着色器使用插值到像素中心的顶点数据，然后，MSAA 使用更大的深度 / 模板缓冲区来确定子采样点的覆盖率。被覆盖的子采样点数量将决定了像素颜色对帧缓冲的影响程度。&lt;br /&gt;
-&amp;lt;center&amp;gt;&lt;br /&gt;
-&amp;lt;figure&amp;gt;&lt;br /&gt;
-&amp;lt;img src=/images/msaa-1.png /&amp;gt;&lt;br /&gt;
-&amp;lt;img src=/images/msaa-2.png /&amp;gt;&lt;br /&gt;
-&amp;lt;/figure&amp;gt;&lt;br /&gt;
-&amp;lt;/center&amp;gt;&lt;/p&gt;
+无论三角形遮盖了多少个子采样点，（每个图元中）每个像素只运行一次片段着色器。片段着色器使用插值到像素中心的顶点数据，然后，MSAA 使用更大的深度 / 模板缓冲区来确定子采样点的覆盖率。被覆盖的子采样点数量将决定了像素颜色对帧缓冲的影响程度。&lt;/p&gt;
+&lt;center&gt;
+&lt;figure&gt;
+&lt;img data-src=/images/msaa-1.png /&gt;
+&lt;img data-src=/images/msaa-2.png /&gt;
+&lt;/figure&gt;
+&lt;/center&gt;
 &lt;h4 id=&#34;opengl中的msaa&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#opengl中的msaa&#34;&gt;#&lt;/a&gt; OpenGL 中的 MSAA&lt;/h4&gt;
 &lt;p&gt;在不启用帧缓冲的情况下，在 OpenGL 中启用 MSAA 只需要加入如下代码&lt;/p&gt;
 &lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;span&gt;p&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;glfwWindowHint&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;GLFW_SAMPLES&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 使用包含 4 个子样本的多重采样缓冲&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;glEnable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;GL_MULTISAMPLE&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;token comment&#34;&gt;// 开启多重采样，一般默认开启&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h4 id=&#34;离屏msaa&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#离屏msaa&#34;&gt;#&lt;/a&gt; 离屏 MSAA&lt;/h4&gt;
@@ -141,7 +141,7 @@
 &lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;span&gt;p&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Assimp&lt;span class=&#34;token double-colon punctuation&#34;&gt;::&lt;/span&gt;Importer importer&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; aiScene &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;scene &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; importer&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;ReadFile&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;path&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; aiProcess_Triangulate &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; aiProcess_FlipUVs&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 函数第一个参数为模型的路径，第二个参数可以让 Assimp 导入数据时做一些额外的计算或操作&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;我们可以进行很多有用的后期处理指令，比如：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;aiProcess_Triangulate：将模型所有的图元形状变换为三角形。&lt;/li&gt;
-&lt;li&gt;aiProcess_FlipUVs：处理的时候翻转 y 轴的纹理坐标。（在 &lt;a href=&#34;OpenGL%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1.md#%E7%BA%B9%E7%90%86&#34;&gt;纹理&lt;/a&gt; 一章中详细的说明）&lt;/li&gt;
+&lt;li&gt;aiProcess_FlipUVs：处理的时候翻转 y 轴的纹理坐标。（在 &lt;a href=&#34;/2025/06/01/OpenGL/OpenGL%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1#%E7%BA%B9%E7%90%86%E5%BC%95%E7%94%A8%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6&#34;&gt;纹理&lt;/a&gt; 一章中详细的说明）&lt;/li&gt;
 &lt;li&gt;aiProcess_GenNormals : 如果模型没有包含法线向量，就为每个顶点创建法线。&lt;/li&gt;
 &lt;li&gt;aiProcess_SplitLargeMeshes : 把大的网格成几个小的的下级网格，当渲染有一个最大数量顶点的限制时或者只能处理小块网格时很有用。&lt;/li&gt;
 &lt;li&gt;aiProcess_OptimizeMeshes : 和上个选项相反，它把几个网格结合为一个更大的网格，减少绘制调用从而进行优化。&lt;/li&gt;
@@ -163,12 +163,12 @@
             <category term="OpenGL" scheme="http://example.com/tags/OpenGL/" />
             <category term="图形学" scheme="http://example.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" />
             <pubDate>Sun, 01 Jun 2025 22:54:31 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;此系列记录我跟随 LearnOpenGL 学习的历程。&lt;br /&gt;
+            <description><![CDATA[ &lt;p&gt;此系列记录我跟随 LearnOpenGL 学习的历程。&lt;/p&gt;
 &lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;相关代码&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0ctUGhvdG9uL215X2xlYXJub3Blbmds&#34; data-background-image=&#34;/images/404.png&#34;&gt;&lt;/span&gt;
           &lt;div class=&#34;info&#34;&gt;
           &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0ctUGhvdG9uL215X2xlYXJub3Blbmds&#34;&gt;相关代码&lt;/span&gt;
           &lt;p class=&#34;desc&#34;&gt;LearnOpenGL相关代码&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h2 id=&#34;入门&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#入门&#34;&gt;#&lt;/a&gt; 入门&lt;/h2&gt;
 &lt;h3 id=&#34;安装opengl&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#安装opengl&#34;&gt;#&lt;/a&gt; 安装 OpenGL&lt;/h3&gt;
 &lt;p&gt;如果是 Windows 端，我使用的 msvc+xmake+vscode 开发环境。msvc 安装直接从微软官方下载 Visual Studio，xmake 用于项目构建和 c++ 库管理，vscode 轻巧方便。&lt;br /&gt;
